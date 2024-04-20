@@ -1,0 +1,183 @@
+<!-- header-start -->
+{%load static%}
+<header class="header d-blue-bg">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-inner">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-lg-7">
+                        <div class="header-inner-start">
+                           
+                            <div class="support d-none d-sm-block">
+                                {% if user.is_authenticated %}
+                                    <p>Welcome
+                                        {% if user.first_name == "" %}
+                                            {{ user.email }}
+                                        {% else %}
+                                            {{ user.first_name }} {{ user.last_name }}
+                                        {% endif %}
+                                    </p> 
+                                {% else %} 
+                                    <p>Please do Login First...</p> 
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-5 d-none d-lg-block">
+                        <div class="header-inner-end text-md-end">
+                            <div class="ovic-menu-wrapper">
+                                <ul>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="contact.html">Order Tracking</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="faq.html">FAQs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-mid">
+        <div class="container">
+            <div class="heade-mid-inner">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <div class="header__info">
+                            <div class="logo">
+                                <a href="index.html" class="logo-image"><img src="{% static 'assets/img/logo/logo.png'%}" alt="logo"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+                        <div class="header__search">
+                            <form action="#">
+                                <div class="header__search-box">
+                                    <input class="search-input" type="text" placeholder="I'm shopping for...">
+                                    <button class="button" type="submit"><i class="far fa-search"></i></button>
+                                </div>
+                                <div class="header__search-cat">
+                                    <select>
+                                        <option>All Categories</option>
+                                        <option>Best Seller Products</option>
+                                        <option>Top 10 Offers</option>
+                                        <option>New Arrivals</option>
+                                        <option>Phones &amp; Tablets</option>
+                                        <option>Electronics &amp; Digital</option>
+                                        <option>Fashion &amp; Clothings</option>
+                                        <option>Jewelry &amp; Watches</option>
+                                        <option>Health &amp; Beauty</option>
+                                        <option>Sound &amp; Speakers</option>
+                                        <option>TV &amp; Audio</option>
+                                        <option>Computers</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% include 'includes/modals.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header__bottom">
+        <div class="container">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-3">                        
+                    <div class="cat__menu-wrapper side-border d-none d-lg-block">
+                        <div class="cat-toggle">
+                            <button type="button" class="cat-toggle-btn cat-toggle-btn-1"><i class="fal fa-bars"></i> Shop by department</button>
+                            <div class="cat__menu">
+                                <nav id="mobile-menu" style="display: block;">
+                                    <ul>
+                                        {% for i in main_category %}
+                                        <li>
+                                            <a href="shop.html">{{i.name}} <i class="far fa-angle-down"></i></a>
+                                            <ul class="mega-menu">
+                                                 {% for cat in i.category_set.all %}
+                                                <li><a href="shop.html" style="color:orange;">{{cat.name}}</a>
+                                                    <ul class="mega-item">
+                                                        {% for sub_cat in cat.sub_category_set.all %}
+                                                        <li><a href="product-details.html">{{sub_cat.name}}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>   
+                                                {% endfor %}
+                                            </ul>
+                                        </li> 
+                                        {% endfor %}  
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-3">
+                  <div class="header__bottom-left d-flex d-xl-block align-items-center">
+                    <div class="side-menu d-lg-none mr-20">
+                      <button type="button" class="side-menu-btn offcanvas-toggle-btn"><i class="fas fa-bars"></i></button>
+                    </div>
+                    <div class="main-menu d-none d-lg-block">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'home' %}" class="active">Home</a>
+                                    
+                                </li>
+                                <li><a href="{% url 'about'%}">About Us</a></li>
+                                <li><a href="{% url 'contact'%}">Contact Us</a></li>
+                                <li><a href="{% url 'product'%}">Product</a></li>
+                                <li><a href="blog.html">My Orders <i class="far fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="blog.html">Orders</a></li>
+                                        <li><a href="blog-details.html">Tracking Orders</a></li>
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-9">
+                    <div class="shopeing-text text-sm-end">
+                        <p>Spend $120 more and get free shipping!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- offcanvas area start -->
+<div class="offcanvas__area">
+    <div class="offcanvas__wrapper">
+    <div class="offcanvas__close">
+        <button class="offcanvas__close-btn" id="offcanvas__close-btn">
+            <i class="fal fa-times"></i>
+        </button>
+    </div>
+    <div class="offcanvas__content">
+        <div class="offcanvas__logo mb-40">
+            <a href="index.html">
+            <img src="{%static 'assets/img/logo/logo.png'%}" alt="logo">
+            </a>
+        </div>
+        <div class="offcanvas__search mb-25">
+            <form action="#">
+                <input type="text" placeholder="What are you searching for?">
+                <button type="submit" ><i class="far fa-search"></i></button>
+            </form>
+        </div>
+        <div class="mobile-menu fix"></div>
+        <div class="offcanvas__action">
+
+        </div>
+    </div>
+    </div>
+</div>
+<!-- offcanvas area end -->      
+<div class="body-overlay"></div>
+<!-- offcanvas area end -->
